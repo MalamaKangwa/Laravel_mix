@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
 use Illuminate\Http\Request;
 use App\User;
 
@@ -18,12 +19,14 @@ class AdminUsersController extends Controller
     //Show the form for creating a new resource.
     public function create()
     {
-        return view('admin.users.create');
+        $roles = Role::pluck('name','id')->all();
+        return view('admin.users.create', compact('roles'));
     }
 
     public function store(Request $request)
     {
-        return view('admin.users.store');
+        return $request->all();
+        //return view('admin.users.store');
     }
 
     public function show($id)

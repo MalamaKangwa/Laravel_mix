@@ -17,6 +17,7 @@
                             <th>Role</th>
                             <th>Created</th>
                             <th>Last Updated</th>
+                            <th>Has Access?</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -30,7 +31,9 @@
                             <td>{{$user->email}}</td>
                             <td>{{$user->user_role->name}}</td>
                             <td>{{$user->created_at}}</td>
-                            <td>{{$user->updated_at->diffForHumans()}}</td>
+                              <td>{{$user->updated_at->diffForHumans()}}</td>
+                              <td>{{$user->user_role->name == 'Admin' ? 'Yes':'No'}}</td>
+
                           </tr>
 
                             @endforeach
