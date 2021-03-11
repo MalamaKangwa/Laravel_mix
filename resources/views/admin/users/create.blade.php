@@ -9,7 +9,7 @@
 
             <div class="col-md-8">
 
-            {!! Form::open(['method'=>'POST', 'action'=>'AdminUsersController@store']) !!}
+            {!! Form::open(['method'=>'POST', 'action'=>'AdminUsersController@store', 'enctype'=>"multipart/form-data"]) !!}
                 <div class="form-group">
                     {!! Form::label('name', 'Name') !!}
                     {!! Form::text('name', null, ['class'=>'form-control']) !!}
@@ -33,8 +33,8 @@
                 <div class="form-group">
 
                 </div>
-                    {!! Form::label('file', 'Upload Photo') !!}
-                    {!! Form::file('file', null, ['class' => 'form-control']) !!}
+                    {!! Form::label('photo_path', 'Upload Photo') !!}
+                    {!! Form::file('photo_path', null, ['class' => 'form-control']) !!}
                 <div>
                      <br>
                     {!! Form::submit('Create Post', ['class'=>'btn btn-primary']) !!}
