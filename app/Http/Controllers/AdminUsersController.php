@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Role;
 use Illuminate\Http\Request;
 use App\User;
@@ -23,7 +24,7 @@ class AdminUsersController extends Controller
         return view('admin.users.create', compact('roles'));
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         return $request->all();
         //return view('admin.users.store');

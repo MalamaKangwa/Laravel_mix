@@ -29,11 +29,19 @@
 
                 <!-- {!! Form::select('status', array(1 => 'Large', 2 => 'Small'), null, ['class' => 'form-control']) !!}
                 -->
+
+                <div class="form-group">
+
+                </div>
+                    {!! Form::label('file', 'Upload Photo') !!}
+                    {!! Form::file('file', null, ['class' => 'form-control']) !!}
                 <div>
                      <br>
                     {!! Form::submit('Create Post', ['class'=>'btn btn-primary']) !!}
                 </div>
             {!! Form::close() !!}
+
+            @include('includes.create_user_error')
 
             </div>
         </div>
