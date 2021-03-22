@@ -25,4 +25,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('admin/users', 'AdminUsersController');
 
-Route::get('admin/users/create', 'AdminUsersController@create')->name('users.create');
+Route::get('/admin/users/create', 'AdminUsersController@create')->name('users.create');

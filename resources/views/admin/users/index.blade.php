@@ -12,6 +12,7 @@
                         <thead>
                           <tr>
                             <th>ID</th>
+                            <th>Photo</th>
                             <th>Firstname</th>
                             <th>Email</th>
                             <th>Role</th>
@@ -27,7 +28,9 @@
 
                           <tr>
                             <td>{{$user->id}}</td>
-                            <td>{{$user->name}}</td>
+                            <td><img height="30" width="30"
+                                     src="{{$user->user_photo ? $user->user_photo->photo_path : '/storage/app/images/istockphoto.jpg'}}"></td>
+                              <td><a href="{{route('users.edit', $user->id)}}">{{$user->name}}</a></td>
                             <td>{{$user->email}}</td>
                             <td>{{$user->user_role->name}}</td>
                             <td>{{$user->created_at}}</td>

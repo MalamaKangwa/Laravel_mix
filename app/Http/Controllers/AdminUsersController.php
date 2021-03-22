@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EditUserRequest;
 use App\Http\Requests\UserRequest;
 use App\Photo;
 use App\Role;
@@ -27,9 +28,6 @@ class AdminUsersController extends Controller
 
     public function store(UserRequest $request)
     {
-        //User::create($request->all());
-        //return redirect('/admin/users');
-
         $input = $request->all();
         //print_r($input);
 
@@ -43,19 +41,14 @@ class AdminUsersController extends Controller
             $photo = Photo::create(['photo_path'=>$name]);
             $input['photo_id'] = $photo->id;
 
-        } else {
-            echo "No File Detected";
         }
-
 
         $input['password'] = bcrypt($request->password);
 
         User::create($input);
-        //return $request->all();
-
-        //return $input;
 
         return redirect('admin/users');
+
     }
 
     public function show($id)
@@ -65,12 +58,42 @@ class AdminUsersController extends Controller
 
     public function edit($id)
     {
-        return view('admin.users.edit');
+        $user = User::findOrFail($id);
+        $roles = Role::pluck('name','id')->all();
+        return view('admin.users.edit', compact('user','roles'));
     }
 
-    public function update(Request $request, $id)
+    public function update(EditUserRequest $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $input = $request->all();
+
+        if($request->hasFile('photo_path')) {
+            $file = $request->file('photo_path');
+            $name = time() . "_" . $file->getClientOriginalName();
+
+            //echo $name;
+            $file->storeAs('images', $name);
+
+            $photo = Photo::create(['photo_path'=>$name]);
+            $input['photo_id'] = $photo->id;
+
+        }
+
+        if(trim($request->password) == ''){
+            $input = $request->except('password');
+        } else{
+            $input = $request->all();
+            $input['password'] = bcrypt($request->password);
+        }
+
+        $user->update($input);
+
+        return redirect('/admin/users');
+
+        //return $input;
+        //return $request->all();
     }
 
     public function destroy($id)
