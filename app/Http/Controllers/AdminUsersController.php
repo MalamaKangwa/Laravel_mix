@@ -8,6 +8,7 @@ use App\Photo;
 use App\Role;
 use Illuminate\Http\Request;
 use App\User;
+use Session;
 
 class AdminUsersController extends Controller
 {
@@ -96,8 +97,14 @@ class AdminUsersController extends Controller
         //return $request->all();
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        unlink(public_path() . $user->user_photo->photo_path);
+        $user->delete();
+
+        $request->session()->flash('deleted_user', 'Task was successful!');
+
+        return redirect('/admin/users');
     }
 }
