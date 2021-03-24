@@ -25,8 +25,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware'=>'admin'], function (){
     Route::resource('admin/users', 'AdminUsersController');
-    Route::resource('admin/posts', 'AdminUsersController');
+    Route::resource('admin/posts', 'AdminPostsController');
 });
 
 
 Route::get('/admin/users/create', 'AdminUsersController@create')->name('users.create');
+
+Route::get('/admin/posts/create', 'AdminPostsController@create')->name('posts.create');
